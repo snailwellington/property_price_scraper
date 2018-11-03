@@ -102,6 +102,6 @@ ggplot(data = subset(unnest_result,date = max(unnest_result$date)), aes(x = tota
        fill = "Region")+
   facet_wrap(~region, scales = "free_x")+
   theme_minimal()+
-  theme(text = element_text(size = 36))
+  theme(text = element_text(size = 16))
 
 ggsave(filename = "output/region_price_dist.png", width = 16, height = 9, dpi = 300)
