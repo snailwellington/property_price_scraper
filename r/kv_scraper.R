@@ -34,7 +34,6 @@ for (i in 1:max_sheet){
 }
 
 
-
 tallinn_analysis <- total_data %>% 
   select(2:6) %>% 
   separate(Kirjeldus, c("county",
@@ -52,16 +51,17 @@ tallinn_analysis <- total_data %>%
   mutate(Hind = as.character(Hind)) %>% 
   mutate(Hind = str_remove_all(Hind,"\n"),
          Hind = str_remove_all(Hind,"[[:space:]]")) %>% 
-  separate(Hind, c("total_price","sq_price","delete1","no_pics"), sep = "€") %>% 
+  separate(Hind, c("total_price","sq_price","delete1","delete2","no_pics")) %>% 
   separate(Pind, c("sq_area"),sep = c("[[:space:]]")) %>% 
-  select(-delete1, -LISATUD) %>% 
-  mutate(sq_area = as.numeric(sq_area),
-         total_price = as.numeric(total_price),
-         sq_price = as.numeric(sq_price),
-         no_pics = as.numeric(no_pics))
+  select(-delete1, -delete2, -LISATUD) %>%
+  mutate(sq_area = as.numeric(as.character(sq_area)),
+         total_price = as.numeric(as.character(total_price)),
+         sq_price = as.numeric(as.character(sq_price)),
+         no_pics = as.numeric(as.character(no_pics)))
 
-write.csv2(tallinn_analysis, file = paste0("D:/Prog/R/Projects/property_scraper/results/kv_posting_data_",Sys.Date(),".csv"),row.names = FALSE)
-saveRDS(object = tallinn_analysis, file = paste0("D:/Prog/R/Projects/property_scraper/data/tallinn_data_",Sys.Date(),".RDS"))
+
+write.csv2(tallinn_analysis, file = paste0("D:/Prog/R/Projects/property_price_scraper/results/kv_posting_data_",Sys.Date(),".csv"),row.names = FALSE)
+saveRDS(object = tallinn_analysis, file = paste0("D:/Prog/R/Projects/property_price_scraper/data/tallinn_data_",Sys.Date(),".RDS"))
 
 print(Sys.time()-time1)
 
