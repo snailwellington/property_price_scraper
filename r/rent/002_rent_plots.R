@@ -97,7 +97,7 @@ tln_mean_price
 
 ggplot(data = subset(unnest_result,date = max(unnest_result$date)), aes(x = total_price, fill = region))+
   geom_histogram(alpha = 0.5, binwidth = 100)+
-  labs(x = "Price from adds",
+  labs(x = paste("Price from adds on",max(unnest_result$date)),
        y = "Number of offers",
        fill = "Region")+
   facet_wrap(~region, scales = "free")+
