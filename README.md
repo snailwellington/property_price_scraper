@@ -1,6 +1,6 @@
-# Tallinn property analysis basing on propery adds
+# Tallinn property analysis basing on propery ads
 
-Collecting property add data weekly to get a feeling about Tallinn property prices in various city regions.
+Collecting property ad data weekly to get a feeling about Tallinn property prices in various city regions.
 
 ## Regional price change
 ![regional_growth](https://github.com/snailwellington/property_price_scraper/blob/master/output/region_price_chg.png)
