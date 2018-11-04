@@ -54,11 +54,11 @@ tln_reg_price_chg <- unnest_result %>%
   summarise(price = mean(total_price,na.rm = TRUE))
 
 ggplot()+
-  labs(y = "Mean property prices by regions, k€",
+  labs(y = "Mean rental prices by regions, EUR",
        color = "Region")+
-  geom_point(data = tln_reg_price_chg,aes(x = date, y = price, color = region),size = 1, alpha = 0.9)+
-  ggrepel::geom_label_repel(data = subset(tln_reg_price_chg,date == min(tln_reg_price_chg$date)),
-                            (aes(x = date, y = price,label = region)), alpha = 0.7)+
+  geom_line(data = tln_reg_price_chg,aes(x = date, y = price, color = region),size = 1, alpha = 0.9)+
+  ggrepel::geom_label_repel(data = subset(tln_reg_price_chg,date == max(tln_reg_price_chg$date)),
+                            (aes(x = date, y = price,label = paste(region,round(price,0), "EUR"))), alpha = 0.7)+
   theme_minimal()+
   theme(text = element_text(size = 36),
         legend.position = "none",
@@ -75,7 +75,7 @@ tln_reg_total_val <- unnest_result %>%
   summarise(value = sum(total_price,na.rm = TRUE)/1000) %>% 
   ggplot(aes(x = date, y = value, color = region))+
   geom_line(size = 1, alpha = 0.9)+
-  labs(y = "Region property total value, M€",
+  labs(y = "Region total rental value, kEUR",
        color = "Region")+
   theme_minimal()+
   theme(text = element_text(size = 36),
