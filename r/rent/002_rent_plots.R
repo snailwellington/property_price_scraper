@@ -47,7 +47,8 @@ unnest_result <- result %>%
   separate(query_result, c("del1","date"), sep = "kv_posting_data_") %>% 
   select(-del1) %>% 
   mutate(date = as.POSIXct(str_replace(date,pattern = ".csv", replacement = ""), format = "%Y-%m-%d"),
-         total_price = total_price) # prices are in thousands of euros
+         total_price = total_price) %>% 
+  filter(total_price < 10000)
 
 tln_reg_price_chg <- unnest_result %>% 
   group_by(date,region) %>% 
@@ -104,3 +105,4 @@ ggplot(data = subset(unnest_result,date = max(unnest_result$date)), aes(x = tota
   theme(text = element_text(size = 16))
 
 ggsave(filename = "output/rent/region_price_dist.png", width = 16, height = 9, dpi = 300)
+

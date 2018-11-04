@@ -100,7 +100,7 @@ ggplot(data = subset(unnest_result,date = max(unnest_result$date)), aes(x = tota
   labs(x = "Price from adds",
        y = "Number of offers",
        fill = "Region")+
-  facet_wrap(~region, scales = "free_x")+
+  facet_wrap(~region, scales = "free")+
   theme_minimal()+
   theme(text = element_text(size = 16))
 
