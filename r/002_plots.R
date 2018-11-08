@@ -1,17 +1,17 @@
 library(ggplot2)
 library(forcats)
-
-plot_data <- readRDS("data/tallinn_data.RDS")
-
-
-ggplot(plot_data,aes(fct_reorder(region,-count)))+
-  geom_histogram(stat = "count")
-  
-
-
-ggplot(subset(plot_data,Tube <= 5),aes(x = fct_reorder(region,-total_price), y = sq_price))+
-  facet_wrap(.~as.factor(Tube))+
-  geom_boxplot()
+# 
+# plot_data <- readRDS("data/tallinn_data.RDS")
+# 
+# 
+# ggplot(plot_data,aes(fct_reorder(region,-count)))+
+#   geom_histogram(stat = "count")
+#   
+# 
+# 
+# ggplot(subset(plot_data,Tube <= 5),aes(x = fct_reorder(region,-total_price), y = sq_price))+
+#   facet_wrap(.~as.factor(Tube))+
+#   geom_boxplot()
 
   
 
@@ -105,3 +105,4 @@ ggplot(data = subset(unnest_result,date = max(unnest_result$date)), aes(x = tota
   theme(text = element_text(size = 16))
 
 ggsave(filename = "output/region_price_dist.png", width = 16, height = 9, dpi = 300)
+
