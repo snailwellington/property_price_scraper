@@ -1,16 +1,16 @@
 library(ggplot2)
 library(forcats)
 
-plot_data <- readRDS("data/rent/tallinn_data_2018-11-03.RDS")
-
-
-ggplot(plot_data,aes(fct_reorder(region,-count)))+
-  geom_histogram(stat = "count")
-
-
-ggplot(subset(plot_data,Tube <= 5),aes(x = fct_reorder(region,-total_price), y = sq_price))+
-  facet_wrap(.~as.factor(Tube))+
-  geom_boxplot()
+# plot_data <- readRDS("data/rent/tallinn_data_2018-11-03.RDS")
+# 
+# 
+# ggplot(plot_data,aes(fct_reorder(region,-count)))+
+#   geom_histogram(stat = "count")
+# 
+# 
+# ggplot(subset(plot_data,Tube <= 5),aes(x = fct_reorder(region,-total_price), y = sq_price))+
+#   facet_wrap(.~as.factor(Tube))+
+#   geom_boxplot()
 
 
 
@@ -64,7 +64,7 @@ ggplot()+
   theme(text = element_text(size = 36),
         legend.position = "none",
         axis.title.x = element_blank())+
-  scale_x_datetime(date_breaks = "2 weeks", date_labels = "%d %b %Y")
+  scale_x_datetime(date_breaks = "1 week", date_labels = "%d %b %Y")
 
 ggsave(filename = "output/rent/region_price_chg.png", width = 16, height = 9,dpi = 300)
 # scale_y_continuous(breaks = seq(100,1000,100), limits = c(100,500))
@@ -81,7 +81,7 @@ tln_reg_total_val <- unnest_result %>%
   theme_minimal()+
   theme(text = element_text(size = 36),
         axis.title.x = element_blank())+
-  scale_x_datetime(date_breaks = "2 weeks", date_labels = "%d %b %Y")
+  scale_x_datetime(date_breaks = "1 week", date_labels = "%d %b %Y")
 
 tln_reg_total_val    
 
