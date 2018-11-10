@@ -61,7 +61,7 @@ ggplot()+
   ggrepel::geom_label_repel(data = subset(tln_reg_price_chg,date == max(tln_reg_price_chg$date)),
                             (aes(x = date, y = price,label = paste(region,round(price,0), "EUR"))), alpha = 0.7)+
   theme_minimal()+
-  theme(text = element_text(size = 36),
+  theme(text = element_text(size = 30),
         legend.position = "none",
         axis.title.x = element_blank())+
   scale_x_datetime(date_breaks = "1 week", date_labels = "%d %b %Y")
@@ -79,7 +79,8 @@ tln_reg_total_val <- unnest_result %>%
   labs(y = "Region total rental value, kEUR",
        color = "Region")+
   theme_minimal()+
-  theme(text = element_text(size = 36),
+  theme(text = element_text(size = 30),
+        legend.position = "top",
         axis.title.x = element_blank())+
   scale_x_datetime(date_breaks = "1 week", date_labels = "%d %b %Y")
 
@@ -96,7 +97,7 @@ tln_mean_price <- unnest_result %>%
 tln_mean_price
 
 ggplot(data = subset(unnest_result,date = max(unnest_result$date)), aes(x = total_price, fill = region))+
-  geom_histogram(alpha = 0.5, bins = 50)+
+  geom_histogram(alpha = 0.5, bins = 30)+
   labs(x = paste("Price from ads on",max(unnest_result$date)),
        y = "Number of offers",
        fill = "Region")+
