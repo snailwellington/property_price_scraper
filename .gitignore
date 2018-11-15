@@ -8,5 +8,6 @@
 /results
 /data
 /logi
+.xml
 
 run_all.R
