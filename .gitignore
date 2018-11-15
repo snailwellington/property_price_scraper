@@ -8,6 +8,7 @@
 /results
 /data
 /logi
-.xml
+
+kv_scraper.xml
 
 run_all.R
