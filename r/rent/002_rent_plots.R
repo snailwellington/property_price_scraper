@@ -96,7 +96,7 @@ tln_mean_price <- unnest_result %>%
 
 tln_mean_price
 
-ggplot(data = subset(unnest_result,date = max(unnest_result$date)), aes(x = total_price, fill = region))+
+ggplot(data = subset(unnest_result,date == max(unnest_result$date)), aes(x = total_price, fill = region))+
   geom_histogram(alpha = 0.5, bins = 30)+
   labs(x = paste("Price from ads on",max(unnest_result$date)),
        y = "Number of offers",
