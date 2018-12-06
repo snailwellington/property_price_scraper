@@ -65,7 +65,7 @@ ggplot()+
   theme(text = element_text(size = 30),
         legend.position = "none",
         axis.title.x = element_blank())+
-  scale_x_datetime(date_breaks = "1 week", date_labels = "%d %b %Y")
+  scale_x_datetime(date_labels = "%d %b %Y")
 
 ggsave(filename = "output/region_price_chg.png", width = 16, height = 9,dpi = 300)
   # scale_y_continuous(breaks = seq(100,1000,100), limits = c(100,500))
