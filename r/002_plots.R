@@ -83,7 +83,7 @@ tln_reg_total_val <- unnest_result %>%
   theme(text = element_text(size = 30),
         legend.position = "top",
         axis.title.x = element_blank())+
-  scale_x_datetime(date_breaks = "1 week", date_labels = "%d %b %Y")
+  scale_x_datetime(date_labels = "%d %b %Y")
 
 tln_reg_total_val    
 
