@@ -55,6 +55,12 @@ tln_reg_price_chg <- unnest_result %>%
   group_by(date,region) %>% 
   summarise(price = mean(total_price,na.rm = TRUE))
 
+
+# rooms <- unnest_result %>% 
+#   group_by(Tube,region) %>% 
+#   summarise(sq_price = mean(sq_price,na.rm = TRUE))
+
+
 ggplot()+
   labs(y = "Mean property prices by regions, kEUR",
        color = "Region")+
