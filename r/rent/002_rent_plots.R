@@ -18,27 +18,8 @@ library(tidyverse)
 
 options(scipen = 999)
 
-data_files <- list.files("results/rent/", pattern = "*.csv")
 
-
-
-import_data_func <- function(filename){
-  
-  loc <- paste0("results/rent/",filename)
-  
-  tmp_file <- readr::read_csv2(loc, locale = locale(encoding = "windows-1252")) %>% 
-    nest()
-  return(tmp_file)
-}
-
-
-test <- data_files %>% 
-  as.data.frame()
-
-colnames(test) <- c("query_result")
-
-result <- test %>% 
-  mutate(price_data = map(.x = as.character(query_result), .f = import_data_func))
+result <- readRDS("data/rent/comb_data.RDS")
 
 unnest_result <- result %>%   
   group_by(query_result) %>% 
