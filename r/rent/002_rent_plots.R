@@ -71,7 +71,7 @@ ggsave(filename = "output/rent/region_total_value_chg.png", width = 16, height =
 
 tln_mean_price <- unnest_result %>% 
   group_by(date) %>% 
-  summarise(mean_price = mean(total_price,na.rm = TRUE)) %>% 
+  summarise(mean_price = median(total_price,na.rm = TRUE)) %>% 
   ggplot(aes(x = date, y = mean_price))+
   geom_line()
 
@@ -80,7 +80,7 @@ ggsave(filename = "output/rent/median_price_tallinn.png", width = 16, height = 9
 
 
 ggplot(data = subset(unnest_result,date == max(unnest_result$date)), aes(x = total_price, fill = region))+
-  geom_histogram(alpha = 0.5, bins = 30)+
+  geom_histogram(alpha = 0.5, binwidth = 50)+
   labs(x = paste("Price from ads on",max(unnest_result$date)),
        y = "Number of offers",
        fill = "Region")+

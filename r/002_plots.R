@@ -76,7 +76,7 @@ ggsave(filename = "output/region_total_value_chg.png", width = 16, height = 9, d
 
 tln_mean_price <- unnest_result %>% 
   group_by(date) %>% 
-  summarise(mean_price = mean(total_price,na.rm = TRUE)) %>% 
+  summarise(mean_price = median(total_price,na.rm = TRUE)) %>% 
   ggplot(aes(x = date, y = mean_price))+
   geom_line()
 
