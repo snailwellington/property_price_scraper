@@ -36,7 +36,7 @@ tln_reg_price_chg <- unnest_result %>%
   summarise(price = median(total_price,na.rm = TRUE))
 
 ggplot()+
-  labs(y = "Mean rental prices by regions, EUR",
+  labs(y = "Median rental prices by regions, EUR",
        color = "Region")+
   geom_line(data = tln_reg_price_chg,aes(x = date, y = price, color = region),size = 1, alpha = 0.9)+
   ggrepel::geom_label_repel(data = subset(tln_reg_price_chg,date == max(tln_reg_price_chg$date)),

@@ -41,7 +41,7 @@ tln_reg_price_chg <- unnest_result %>%
 
 
 ggplot()+
-  labs(y = "Mean property prices by regions, kEUR",
+  labs(y = "Median property prices by regions, kEUR",
        color = "Region")+
   geom_line(data = tln_reg_price_chg,aes(x = date, y = price, color = region),size = 1, alpha = 0.9)+
   ggrepel::geom_label_repel(data = subset(tln_reg_price_chg,date == min(tln_reg_price_chg$date)),
