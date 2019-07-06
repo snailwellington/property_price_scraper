@@ -34,6 +34,18 @@ tln_reg_price_chg <- unnest_result %>%
   group_by(date,region) %>% 
   summarise(price = median(total_price,na.rm = TRUE))
 
+median_change <- unnest_result %>% 
+  mutate(year = lubridate::year(date),
+         month = lubridate::month(date)) %>% 
+  group_by(date) %>% 
+  summarise(med_price = median(sq_price, na.rm = TRUE))
+
+
+ggplot(median_change, aes(x = date, y = med_price))+
+  geom_line()
+
+## median asking price
+median(median_change$med_price)
 
 # rooms <- unnest_result %>% 
 #   group_by(Tube,region) %>% 
