@@ -62,7 +62,8 @@ ggplot()+
   theme(text = element_text(size = 30),
         legend.position = "none",
         axis.title.x = element_blank())+
-  scale_x_datetime(date_labels = "%b %Y")
+  scale_x_datetime(date_labels = "%b %Y")+
+  expand_limits(y=0)
 
 ggsave(filename = "output/region_price_chg.png", width = 16, height = 9,dpi = 300)
   # scale_y_continuous(breaks = seq(100,1000,100), limits = c(100,500))
@@ -80,7 +81,8 @@ tln_reg_total_val <- unnest_result %>%
   theme(text = element_text(size = 30),
         legend.position = "top",
         axis.title.x = element_blank())+
-  scale_x_datetime(date_labels = "%b %Y")
+  scale_x_datetime(date_labels = "%b %Y")+
+  expand_limits(y=0)
 
 tln_reg_total_val    
 
@@ -90,7 +92,8 @@ tln_mean_price <- unnest_result %>%
   group_by(date) %>% 
   summarise(mean_price = median(total_price,na.rm = TRUE)) %>% 
   ggplot(aes(x = date, y = mean_price))+
-  geom_line()
+  geom_line()+
+  expand_limits(y=0)
 
 tln_mean_price
 ggsave(filename = "output/median_price_tallinn.png", width = 16, height = 9, dpi = 300)
@@ -103,7 +106,8 @@ ggplot(data = subset(unnest_result,date == max(unnest_result$date)), aes(x = tot
   # facet_wrap(~region, scales = "free")+
   theme_minimal()+
   theme(text = element_text(size = 16))+
-  scale_x_continuous(limits = c(0,1000))
+  scale_x_continuous(limits = c(0,1000))+
+  expand_limits(y=0)
 
 ggsave(filename = "output/region_price_dist.png", width = 16, height = 9, dpi = 300)
 
