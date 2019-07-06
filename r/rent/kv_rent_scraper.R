@@ -60,8 +60,8 @@ tallinn_analysis <- total_data %>%
          no_pics = as.numeric(as.character(no_pics)))
 
 
-write.csv2(tallinn_analysis, file = paste0("D:/Prog/R/Projects/property_price_scraper/results/rent/kv_posting_data_",Sys.Date(),".csv"),row.names = FALSE)
-saveRDS(object = tallinn_analysis, file = paste0("D:/Prog/R/Projects/property_price_scraper/data/rent/tallinn_data_",Sys.Date(),".RDS"))
+write.csv2(tallinn_analysis, file = here("results","rent",paste0("kv_posting_data_",Sys.Date(),".csv")),row.names = FALSE)
+saveRDS(object = tallinn_analysis, file = here("data","rent",paste0("tallinn_data_",Sys.Date(),".RDS")))
 
 print(Sys.time()-time1)
 

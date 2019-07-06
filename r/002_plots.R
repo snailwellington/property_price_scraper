@@ -19,7 +19,7 @@ library(tidyverse)
 
 options(scipen = 999)
 
-result <- readRDS("data/comb_data.RDS")
+result <- readRDS(here("data","comb_data.RDS"))
   
 unnest_result <- result %>%   
   group_by(query_result) %>% 
@@ -65,7 +65,7 @@ ggplot()+
   scale_x_datetime(date_labels = "%b %Y")+
   expand_limits(y=0)
 
-ggsave(filename = "output/region_price_chg.png", width = 16, height = 9,dpi = 300)
+ggsave(filename = here("output","region_price_chg.png"), width = 16, height = 9,dpi = 300)
   # scale_y_continuous(breaks = seq(100,1000,100), limits = c(100,500))
   
   
@@ -86,7 +86,7 @@ tln_reg_total_val <- unnest_result %>%
 
 tln_reg_total_val    
 
-ggsave(filename = "output/region_total_value_chg.png", width = 16, height = 9, dpi = 300)
+ggsave(filename = here("output","region_total_value_chg.png"), width = 16, height = 9, dpi = 300)
 
 tln_mean_price <- unnest_result %>% 
   group_by(date) %>% 
@@ -96,7 +96,7 @@ tln_mean_price <- unnest_result %>%
   expand_limits(y=0)
 
 tln_mean_price
-ggsave(filename = "output/median_price_tallinn.png", width = 16, height = 9, dpi = 300)
+ggsave(filename = here("output","median_price_tallinn.png"), width = 16, height = 9, dpi = 300)
 
 ggplot(data = subset(unnest_result,date == max(unnest_result$date)), aes(x = total_price, fill = region))+
   geom_histogram(alpha = 0.5, bins = 50)+
@@ -109,5 +109,5 @@ ggplot(data = subset(unnest_result,date == max(unnest_result$date)), aes(x = tot
   scale_x_continuous(limits = c(0,1000))+
   expand_limits(y=0)
 
-ggsave(filename = "output/region_price_dist.png", width = 16, height = 9, dpi = 300)
+ggsave(filename = here("output","region_price_dist.png"), width = 16, height = 9, dpi = 300)
 

@@ -1,5 +1,6 @@
 library(ggplot2)
 library(forcats)
+library(here)
 
 # plot_data <- readRDS("data/rent/tallinn_data_2018-11-03.RDS")
 # 
@@ -19,7 +20,7 @@ library(tidyverse)
 options(scipen = 999)
 
 
-result <- readRDS("data/rent/comb_data.RDS")
+result <- readRDS(here("data","rent","comb_data.RDS"))
 
 unnest_result <- result %>%   
   group_by(query_result) %>% 
@@ -48,7 +49,7 @@ ggplot()+
   scale_x_datetime(date_labels = "%b %Y")+
   expand_limits(y=0)
 
-ggsave(filename = "output/rent/region_price_chg.png", width = 16, height = 9,dpi = 300)
+ggsave(filename = here("output","rent","region_price_chg.png"), width = 16, height = 9,dpi = 300)
 # scale_y_continuous(breaks = seq(100,1000,100), limits = c(100,500))
 
 
@@ -69,7 +70,7 @@ tln_reg_total_val <- unnest_result %>%
 
 tln_reg_total_val    
 
-ggsave(filename = "output/rent/region_total_value_chg.png", width = 16, height = 9, dpi = 300)
+ggsave(filename =  here("output","rent","region_total_value_chg.png"), width = 16, height = 9, dpi = 300)
 
 tln_mean_price <- unnest_result %>% 
   group_by(date) %>% 
@@ -79,7 +80,7 @@ tln_mean_price <- unnest_result %>%
   expand_limits(y=0)
 
 tln_mean_price
-ggsave(filename = "output/rent/median_price_tallinn.png", width = 16, height = 9, dpi = 300)
+ggsave(filename =  here("output","rent","median_price_tallinn.png"), width = 16, height = 9, dpi = 300)
 
 
 ggplot(data = subset(unnest_result,date == max(unnest_result$date)), aes(x = total_price, fill = region))+
@@ -93,5 +94,5 @@ ggplot(data = subset(unnest_result,date == max(unnest_result$date)), aes(x = tot
   scale_x_continuous(limits = c(0,1000))+
   expand_limits(y=0)
 
-ggsave(filename = "output/rent/region_price_dist.png", width = 16, height = 9, dpi = 300)
+ggsave(filename =  here("output","rent","region_price_dist.png"), width = 16, height = 9, dpi = 300)
 
