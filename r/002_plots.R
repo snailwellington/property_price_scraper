@@ -55,6 +55,7 @@ median(median_change$med_price)
 ggplot()+
   labs(y = "Median property prices by regions, kEUR",
        color = "Region")+
+  geom_smooth(data = tln_reg_price_chg,aes(x = date, y = price))+
   geom_line(data = tln_reg_price_chg,aes(x = date, y = price, color = region),size = 1, alpha = 0.9)+
   ggrepel::geom_label_repel(data = subset(tln_reg_price_chg,date == min(tln_reg_price_chg$date)),
                             (aes(x = date, y = price,label = region)), alpha = 0.7)+
@@ -73,8 +74,9 @@ ggsave(filename = here("output","region_price_chg.png"), width = 16, height = 9,
 tln_reg_total_val <- unnest_result %>% 
   group_by(date,region) %>% 
   summarise(value = sum(total_price,na.rm = TRUE)/1000) %>% 
-  ggplot(aes(x = date, y = value, color = region))+
-  geom_line(size = 1, alpha = 0.9)+
+  ggplot(aes(x = date, y = value))+
+  geom_line(size = 1, alpha = 0.9,aes(color = region))+
+  geom_smooth()+
   labs(y = "Region property total value, MEUR",
        color = "Region")+
   theme_minimal()+

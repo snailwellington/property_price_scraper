@@ -39,6 +39,7 @@ tln_reg_price_chg <- unnest_result %>%
 ggplot()+
   labs(y = "Median rental prices by regions, EUR",
        color = "Region")+
+  geom_smooth(data = tln_reg_price_chg,aes(x = date, y = price))+
   geom_line(data = tln_reg_price_chg,aes(x = date, y = price, color = region),size = 1, alpha = 0.9)+
   ggrepel::geom_label_repel(data = subset(tln_reg_price_chg,date == max(tln_reg_price_chg$date)),
                             (aes(x = date, y = price,label = paste(region,round(price,0), "EUR"))), alpha = 0.7)+
@@ -57,8 +58,9 @@ ggsave(filename = here("output","rent","region_price_chg.png"), width = 16, heig
 tln_reg_total_val <- unnest_result %>% 
   group_by(date,region) %>% 
   summarise(value = sum(total_price,na.rm = TRUE)/1000) %>% 
-  ggplot(aes(x = date, y = value, color = region))+
-  geom_line(size = 1, alpha = 0.9)+
+  ggplot(aes(x = date, y = value))+
+  geom_line(size = 1, alpha = 0.9,aes(color = region))+
+  geom_smooth(aes(x = date, y = value))+
   labs(y = "Region total rental value, kEUR",
        color = "Region")+
   theme_minimal()+
