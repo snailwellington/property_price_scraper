@@ -34,6 +34,19 @@ tln_reg_price_chg <- unnest_result %>%
   group_by(date,region) %>% 
   summarise(price = median(total_price,na.rm = TRUE))
 
+median_change <- unnest_result %>% 
+  mutate(year = lubridate::year(date),
+         month = lubridate::month(date)) %>% 
+  group_by(date) %>% 
+  summarise(med_price = median(sq_price, na.rm = TRUE))
+
+
+ggplot(median_change, aes(x = date, y = med_price))+
+  geom_line()+
+  scale_y_continuous(limits = c(0,3000))
+
+## median asking price
+median(median_change$med_price)
 
 # rooms <- unnest_result %>% 
 #   group_by(Tube,region) %>% 
@@ -78,7 +91,8 @@ tln_mean_price <- unnest_result %>%
   group_by(date) %>% 
   summarise(mean_price = median(total_price,na.rm = TRUE)) %>% 
   ggplot(aes(x = date, y = mean_price))+
-  geom_line()
+  geom_line()+
+  scale_y_continuous(limits = c(0,200))
 
 tln_mean_price
 ggsave(filename = "output/median_price_tallinn.png", width = 16, height = 9, dpi = 300)
