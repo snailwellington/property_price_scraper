@@ -42,12 +42,8 @@ median_change <- unnest_result %>%
 
 
 ggplot(median_change, aes(x = date, y = med_price))+
-<<<<<<< HEAD
   geom_line()+
-  scale_y_continuous(limits = c(0,3000))
-=======
-  geom_line()
->>>>>>> 2bdabf746df730786ee45b7bfae0407bcd5f2686
+  expand_limits(y=0)
 
 ## median asking price
 median(median_change$med_price)
@@ -100,11 +96,9 @@ tln_mean_price <- unnest_result %>%
   summarise(mean_price = median(total_price,na.rm = TRUE)) %>% 
   ggplot(aes(x = date, y = mean_price))+
   geom_line()+
-<<<<<<< HEAD
-  scale_y_continuous(limits = c(0,200))
-=======
+  # scale_y_continuous(limits = c(0,200))+
   expand_limits(y=0)
->>>>>>> 2bdabf746df730786ee45b7bfae0407bcd5f2686
+
 
 tln_mean_price
 ggsave(filename = here("output","median_price_tallinn.png"), width = 16, height = 9, dpi = 300)
