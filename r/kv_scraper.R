@@ -1,6 +1,5 @@
 library(rvest)
 library(tidyverse)
-library(here)
 
 time1 <- Sys.time()
 total_data <- data.frame()
@@ -61,8 +60,8 @@ tallinn_analysis <- total_data %>%
          no_pics = as.numeric(as.character(no_pics)))
 
 
-write.csv2(tallinn_analysis, file = here("results",paste0("kv_posting_data_",Sys.Date(),".csv")),row.names = FALSE)
-saveRDS(object = tallinn_analysis, file = here("data",paste0("tallinn_data_",Sys.Date(),".RDS")))
+write.csv2(tallinn_analysis, file = paste0("results/kv_posting_data_",Sys.Date(),".csv"),row.names = FALSE)
+saveRDS(object = tallinn_analysis, file = paste0("data/tallinn_data_",Sys.Date(),".RDS"))
 
 print(Sys.time()-time1)
 
