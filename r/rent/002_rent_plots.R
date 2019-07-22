@@ -19,7 +19,7 @@ library(tidyverse)
 options(scipen = 999)
 
 
-result <- readRDS("data/rent","comb_data.RDS")
+result <- readRDS("data/rent/comb_data.RDS")
 
 unnest_result <- result %>%   
   group_by(query_result) %>% 
