@@ -28,11 +28,26 @@ unnest_result <- result %>%
   separate(query_result, c("del1","date"), sep = "kv_posting_data_") %>% 
   select(-del1) %>% 
   mutate(date = as.POSIXct(str_replace(date,pattern = ".csv", replacement = ""), format = "%Y-%m-%d"),
-         total_price = total_price/1000) # prices are in thousands of euros
+         total_price = total_price/1000) %>% # prices are in thousands of euros
+  filter(sq_price < 10000)
+
+
+tln_groups <- unnest_result %>% 
+  # filter(date == max(unnest_result$date)) %>% 
+  filter(is.na(Tube) == FALSE & Tube <=5) %>% 
+  group_by(date,Tube) %>% 
+  summarise(sq_median = median(sq_price, na.rm = TRUE))
+
+ggplot(tln_groups, aes(x = date, y = sq_median, color = as.factor(Tube)))+
+  # facet_grid(region~.,scales = "free")+
+  geom_line()
+
+
 
 tln_reg_price_chg <- unnest_result %>% 
   group_by(date,region) %>% 
-  summarise(price = median(total_price,na.rm = TRUE))
+  summarise(price = median(total_price,na.rm = TRUE),
+            sq_price = median(sq_price,na.rm = TRUE))
 
 median_change <- unnest_result %>% 
   mutate(year = lubridate::year(date),
@@ -41,7 +56,7 @@ median_change <- unnest_result %>%
   summarise(med_price = median(sq_price, na.rm = TRUE))
 
 
-ggplot(median_change, aes(x = date, y = med_price))+
+ggplot(tln_reg_price_chg, aes(x = date, y = sq_price, color = region))+
   geom_line()+
   expand_limits(y=0)
 
