@@ -119,3 +119,16 @@ ggplot(data = subset(unnest_result,date == max(unnest_result$date)), aes(x = tot
 
 ggsave(filename =  "output/rent/region_price_dist.png", width = 16, height = 9, dpi = 300)
 
+ggplot(data = subset(unnest_result,date == max(unnest_result$date) & sq_price > 0 & sq_price < 100), aes(x = sq_price, fill = region))+
+  geom_histogram(alpha = 0.5, bins =10)+
+  labs(x = paste("Price from ads on",max(unnest_result$date)),
+       y = "Number of offers",
+       fill = "Region")+
+  # facet_wrap(~region, scales = "free")+
+  theme_minimal()+
+  theme(text = element_text(size = 16))+
+  # scale_x_continuous(limits = c(0,1000))+
+  expand_limits(y=0)
+
+ggsave(filename =  "output/rent/region_m2_price_dist.png", width = 16, height = 9, dpi = 300)
+
