@@ -33,10 +33,31 @@ unnest_result <- result %>%
 
 tln_reg_price_chg <- unnest_result %>% 
   group_by(date,region) %>% 
-  summarise(price = median(total_price,na.rm = TRUE))
+  summarise(price = mean(total_price,na.rm = TRUE),
+            sq_price = mean(sq_price, na.rm = TRUE))
+
 
 ggplot()+
-  labs(y = "Median rental prices by regions, EUR",
+  labs(y = "Mean rental m2 prices by regions, EUR",
+       color = "Region")+
+  geom_smooth(data = tln_reg_price_chg,aes(x = date, y = sq_price))+
+  geom_line(data = tln_reg_price_chg,aes(x = date, y = sq_price, color = region),size = 1, alpha = 0.9)+
+  ggrepel::geom_label_repel(data = subset(tln_reg_price_chg,date == min(tln_reg_price_chg$date)),
+                            (aes(x = date, y = sq_price,label = paste(region,round(sq_price,0), "EUR"))), alpha = 0.7)+
+  ggrepel::geom_label_repel(data = subset(tln_reg_price_chg,date == max(tln_reg_price_chg$date)),
+                            (aes(x = date, y = sq_price,label = paste(region,round(sq_price,0), "EUR"))), alpha = 0.7)+
+  theme_minimal()+
+  theme(text = element_text(size = 30),
+        legend.position = "none",
+        axis.title.x = element_blank())+
+  scale_x_datetime(date_labels = "%b %Y")+
+  expand_limits(y=0)
+
+
+ggsave(filename = "output/rent/region_m2_price_chg.png", width = 16, height = 9,dpi = 300)
+
+ggplot()+
+  labs(y = "Mean rental prices by regions, EUR",
        color = "Region")+
   geom_smooth(data = tln_reg_price_chg,aes(x = date, y = price))+
   geom_line(data = tln_reg_price_chg,aes(x = date, y = price, color = region),size = 1, alpha = 0.9)+
@@ -78,6 +99,7 @@ tln_mean_price <- unnest_result %>%
   summarise(mean_price = median(total_price,na.rm = TRUE)) %>% 
   ggplot(aes(x = date, y = mean_price))+
   geom_line()+
+  labs(y = "Tallinns median rent price, €")+
   expand_limits(y=0)
 
 tln_mean_price
