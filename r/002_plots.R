@@ -18,8 +18,11 @@ library(forcats)
 library(tidyverse)
 
 options(scipen = 999)
+getwd()
 
-result <- readRDS("data/comb_data.RDS")
+
+
+result <- readRDS("data/comb_data.rds")
   
 unnest_result <- result %>%   
   group_by(query_result) %>% 
