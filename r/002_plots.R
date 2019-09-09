@@ -45,6 +45,9 @@ ggplot(tln_groups, aes(x = date, y = sq_median, color = as.factor(Tube)))+
   # facet_grid(region~.,scales = "free")+
   geom_line()
 
+ggplot(tln_groups, aes(x = date, y = sq_median, color = as.factor(Tube)))+
+  # facet_grid(region~.,scales = "free")+
+  geom_line()
 
 
 tln_reg_price_chg <- unnest_result %>% 
@@ -88,6 +91,24 @@ ggplot()+
 ggsave(filename = "output/region_price_chg.png", width = 16, height = 9,dpi = 300)
   # scale_y_continuous(breaks = seq(100,1000,100), limits = c(100,500))
   
+
+
+ggplot()+
+  labs(y = "Median m2 prices by regions, EUR",
+       color = "Region")+
+  geom_smooth(data = tln_reg_price_chg,aes(x = date, y = sq_price))+
+  geom_line(data = tln_reg_price_chg,aes(x = date, y = sq_price, color = region),size = 1, alpha = 0.9)+
+  ggrepel::geom_label_repel(data = subset(tln_reg_price_chg,date == min(tln_reg_price_chg$date)),
+                            (aes(x = date, y = sq_price,label = region)), alpha = 0.7)+
+  theme_minimal()+
+  theme(text = element_text(size = 30),
+        legend.position = "none",
+        axis.title.x = element_blank())+
+  scale_x_datetime(date_labels = "%b %Y")+
+  expand_limits(y=1500)+
+  scale_y_continuous(breaks = seq(0,4000,250))
+
+ggsave(filename = "output/region_m2_price_chg.png", width = 16, height = 9,dpi = 300)
   
 
 tln_reg_total_val <- unnest_result %>% 
