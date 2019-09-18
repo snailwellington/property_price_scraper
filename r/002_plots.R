@@ -35,6 +35,27 @@ unnest_result <- result %>%
   filter(sq_price < 10000)
 
 
+add_count <- unnest_result %>% 
+  group_by(date) %>% 
+  summarise(count = n())
+
+ggplot(add_count,aes(date,count)) +
+  geom_line()+
+  expand_limits(y=0)
+
+ggsave("output/add_count_line.png", width = 16, height = 9,dpi = 300)
+
+add_count_region <- unnest_result %>% 
+  group_by(date,region) %>% 
+  summarise(count = n())
+
+ggplot(add_count_region,aes(date,count, color = region)) +
+  geom_line(size = 1)+
+  expand_limits(y=0)
+
+ggsave("output/add_count_region_line.png", width = 16, height = 9,dpi = 300)
+
+
 tln_groups <- unnest_result %>% 
   # filter(date == max(unnest_result$date)) %>% 
   filter(is.na(Tube) == FALSE & Tube <=5) %>% 
