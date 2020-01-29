@@ -90,7 +90,6 @@ ggplot(tln_reg_price_chg, aes(x = date, y = sq_price, color = region))+
 ## median asking price
 median(median_change$med_price)
 
-# rooms <- unnest_result %>% 
 #   group_by(Tube,region) %>% 
 #   summarise(sq_price = mean(sq_price,na.rm = TRUE))
 
