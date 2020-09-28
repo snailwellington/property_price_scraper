@@ -4,7 +4,7 @@ library(tidyverse)
 time1 <- Sys.time()
 total_data <- data.frame()
 
-max_sheet_url <- "https://kinnisvaraportaal-kv-ee.postimees.ee/?act=search.simple&last_deal_type=&company_id=&page=1&orderby=ob&page_size=100&deal_type=2&dt_select=2&county=1&search_type=new&parish=1061&rooms_min=&rooms_max=&price_min=&price_max=&nr_of_people=&area_min=&area_max=&floor_min=&floor_max=&energy_certs=&keyword="
+max_sheet_url <- "https://www.kv.ee/?act=search.simple&last_deal_type=2&company_id=&page=1&orderby=ob&page_size=50&deal_type=2&dt_select=2&county=1&search_type=new&parish=1061&city%5B%5D=1001&city%5B%5D=5701&city%5B%5D=1003&city%5B%5D=1004&city%5B%5D=1006&city%5B%5D=1007&city%5B%5D=1008&city%5B%5D=1010&city%5B%5D=1011&city%5B%5D=5700&rooms_min=&rooms_max=&price_min=&price_max=&nr_of_people=&area_min=&area_max=&floor_min=&floor_max=&energy_certs=&keyword="
 max_sheet <- read_html(max_sheet_url) %>% 
   html_node("a.count") %>% 
   html_text() %>% 
@@ -15,9 +15,9 @@ wait_time <- 5
 
 for (i in 1:max_sheet){
   
-  link_url <- paste0("https://kinnisvaraportaal-kv-ee.postimees.ee/?act=search.simple&last_deal_type=&company_id=&page=",
+  link_url <- paste0("https://www.kv.ee/?act=search.simple&last_deal_type=2&company_id=&page=",
                      i,
-                     "&orderby=ob&page_size=100&deal_type=2&dt_select=2&county=1&search_type=new&parish=1061&rooms_min=&rooms_max=&price_min=&price_max=&nr_of_people=&area_min=&area_max=&floor_min=&floor_max=&energy_certs=&keyword=")
+                     "&orderby=ob&page_size=50&deal_type=2&dt_select=2&county=1&search_type=new&parish=1061&city%5B%5D=1001&city%5B%5D=5701&city%5B%5D=1003&city%5B%5D=1004&city%5B%5D=1006&city%5B%5D=1007&city%5B%5D=1008&city%5B%5D=1010&city%5B%5D=1011&city%5B%5D=5700&rooms_min=&rooms_max=&price_min=&price_max=&nr_of_people=&area_min=&area_max=&floor_min=&floor_max=&energy_certs=&keyword=")
   
   html_data <- read_html(link_url)
   
